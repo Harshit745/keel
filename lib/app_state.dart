@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 import 'models/reflection_entry.dart';
 import 'engines/self_trust_engine.dart';
 
-class LifeOSState {
+class KeelState {
   static late Box<ReflectionEntry> _box;
 
   // Derived metrics

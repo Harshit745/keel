@@ -41,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('LifeOS',
+            const Text('Keel',
                 style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
             const SizedBox(height: 40),
             TextField(controller: email, decoration: const InputDecoration(labelText: 'Email')),

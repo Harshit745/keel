@@ -7,9 +7,9 @@ import 'engines/weak_window_engine.dart';
 
 class InsightEngine {
   static String primary() {
-    final h = LifeOSState.history;
+    final h = KeelState.history;
     
-    final today = LifeOSState.today;
+    final today = KeelState.today;
 
     if (today != null && today.index < 40 && h.length < 3) {
       return "Today was difficult, but this does not indicate a downward trend yet.";

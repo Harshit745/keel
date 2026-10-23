@@ -8,7 +8,7 @@ class ChartsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final history = LifeOSState.history.reversed.toList();
+    final history = KeelState.history.reversed.toList();
 
     if (history.length < 2) {
       return const Scaffold(

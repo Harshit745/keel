@@ -30,10 +30,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final today = LifeOSState.today;
+    final today = KeelState.today;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('LifeOS')),
+      appBar: AppBar(title: const Text('Keel')),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         children: [

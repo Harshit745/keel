@@ -689,7 +689,7 @@ class LifeFeatureState {
     final focusRate = focusCompletionRate();
     final pendingDecisionReviews = decisions.where((item) => !item.reviewed).length;
 
-    final reflectionHistory = LifeOSState.history;
+    final reflectionHistory = KeelState.history;
     var averageReflection = 0;
     if (reflectionHistory.isNotEmpty) {
       final total = reflectionHistory.fold<int>(0, (sum, entry) => sum + entry.index);

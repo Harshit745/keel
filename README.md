@@ -1,4 +1,4 @@
-# LifeOS
+# Keel
 
 A Flutter productivity prototype for daily reflection, goals, routines, focus sessions, and weekly reviews. Built by [Harshit Sharma](https://github.com/Harshit745).
 
@@ -41,8 +41,8 @@ Flutter, Dart (SDK constraint `^3.8.1`), Firebase Core/Authentication, Hive, gen
 Install Flutter and native tooling for your target, then:
 
 ```sh
-git clone https://github.com/Harshit745/LIFE.git
-cd LIFE
+git clone https://github.com/Harshit745/keel.git
+cd keel
 flutter pub get
 ```
 
@@ -88,7 +88,7 @@ flutter analyze
 flutter test
 ```
 
-The existing test is an obsolete Flutter counter scaffold referencing `MyApp`; the application root is now `LifeOSApp`. It needs replacement and does not validate current behavior. No passing Flutter test suite or cross-platform build is claimed.
+The existing test is an obsolete Flutter counter scaffold referencing `MyApp`; the application root is now `KeelApp`. It needs replacement and does not validate current behavior. No passing Flutter test suite or cross-platform build is claimed.
 
 ## Roadmap
 
@@ -100,7 +100,9 @@ The existing test is an obsolete Flutter counter scaffold referencing `MyApp`; t
 
 ## Related Keel project
 
-The local Keel codebase contains a promotional website, animations, and a Firebase waitlist. LifeOS has the broader implemented application, so this repository publishes LifeOS. Marketing concepts from Keel are not evidence of implemented app behavior.
+This repository contains the Flutter application, previously named LifeOS. A separate Keel promotional website contains animations and a Firebase waitlist. Features advertised on that website should only be treated as implemented in this app when documented in the feature table above.
+
+The app name and Dart package are now Keel (`keel`). Existing native application identifiers and Firebase project identifiers are retained so the rename does not disconnect the configured Firebase apps.
 
 ## License
 

@@ -20,13 +20,13 @@ void main() async {
   Hive.registerAdapter(ReflectionEntryAdapter());
   await Hive.openBox<ReflectionEntry>('reflections');
 
-  await LifeOSState.init();
+  await KeelState.init();
 
-  runApp(const LifeOSApp());
+  runApp(const KeelApp());
 }
 
-class LifeOSApp extends StatelessWidget {
-  const LifeOSApp({super.key});
+class KeelApp extends StatelessWidget {
+  const KeelApp({super.key});
 
   @override
   Widget build(BuildContext context) {

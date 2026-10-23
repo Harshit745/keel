@@ -7,7 +7,7 @@ class HistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final h = LifeOSState.history;
+    final h = KeelState.history;
 
     return Scaffold(
       appBar: AppBar(title: const Text("History")),

@@ -1,5 +1,5 @@
-import 'package:lifeos/app_state.dart';
-import 'package:lifeos/models/goal.dart';
+import 'package:keel/app_state.dart';
+import 'package:keel/models/goal.dart';
 
 class GoalState {
   static final List<Goal> goals = [
@@ -11,7 +11,7 @@ class GoalState {
 
 class GoalInsightEngine {
   static String generate() {
-    if (LifeOSState.history.length < 3) {
+    if (KeelState.history.length < 3) {
       return "Not enough data to evaluate goal alignment.";
     }
 
@@ -22,7 +22,7 @@ class GoalInsightEngine {
       return "All goals completed. Excellent discipline.";
     }
 
-    final avgIndex = LifeOSState.history
+    final avgIndex = KeelState.history
         .take(3)
         .map((e) => e.index)
         .reduce((a, b) => a + b) /

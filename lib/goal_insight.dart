@@ -3,7 +3,7 @@ import '../goals.dart';
 
 class GoalInsightEngine {
   static String generate() {
-    if (LifeOSState.history.length < 3) {
+    if (KeelState.history.length < 3) {
       return "Insufficient data for goal correlation.";
     }
 
@@ -13,7 +13,7 @@ class GoalInsightEngine {
       return "No active goals found.";
     }
 
-    final avgIndex = LifeOSState.history
+    final avgIndex = KeelState.history
         .take(3)
         .map((e) => e.index)
         .reduce((a, b) => a + b) /

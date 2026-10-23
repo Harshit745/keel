@@ -9,7 +9,7 @@ class WeeklyReportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final narrative =
-    WeeklyReportEngine.generate(LifeOSState.history);
+    WeeklyReportEngine.generate(KeelState.history);
 
     return Scaffold(
       appBar: AppBar(title: const Text("Weekly Report")),

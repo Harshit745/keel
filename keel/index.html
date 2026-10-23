@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>Keel — The OS for founders who ship</title>
+  <meta property="og:title" content="Keel — Track Progress. Not Habits." />
+  <meta property="og:description" content="A progress-focused system for founders and builders." />
+  <meta property="og:url" content="https://keel-livid.vercel.app/" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LHCXZY98L5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LHCXZY98L5');
+  </script>
+
+  <style>
+    :root {
+      --bg: #09090b;
+      --bg-card: #111114;
+      --bg-hover: #18181c;
+      --border: rgba(255,255,255,0.06);
+      --border-hover: rgba(255,255,255,0.12);
+      --fg: #e4e4e7;
+      --fg-dim: #71717a;
+      --fg-muted: #52525b;
+      --accent: #e2c044;
+      --accent-dim: rgba(226,192,68,0.15);
+      --accent-glow: rgba(226,192,68,0.08);
+
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection { background: var(--accent); color: #000; }
+
+    a { color: inherit; text-decoration: none; }
+
+    .mono {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--fg-dim);
+    }
+
+    /* ═══ NAV ═══ */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 1.25rem 2.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      backdrop-filter: blur(24px) saturate(1.2);
+      background: rgba(9,9,11,0.75);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 700; font-size: 1.4rem;
+      letter-spacing: -0.03em;
+    }
+    .nav-right {
+      display: flex; align-items: center; gap: 1.5rem;
+    }
+    .nav-count {
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .pulse-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 0.4; box-shadow: none; }
+      50% { opacity: 1; box-shadow: 0 0 8px var(--accent); }
+    }
+    .btn-nav {
+      background: var(--accent);
+      color: #000;
+      font-family: var(--font-display);
+      font-weight: 600; font-size: 0.85rem;
+      padding: 0.6rem 1.4rem;
+      border: none; cursor: pointer;
+      transition: transform 0.2s var(--ease-out), box-shadow 0.3s;
+    }
+    .btn-nav:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px var(--accent-dim);
+    }
+
+    /* ═══ HERO ═══ */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Ambient glow behind hero */
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      animation: breathe 6s ease-in-out infinite alternate;
+    }
+    @keyframes breathe {
+      from { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
+      to { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+    }
+
+    #hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 11vw, 9rem);
+      font-weight: 700;
+      line-height: 0.9;
+      letter-spacing: -0.05em;
+      position: relative; z-index: 2;
+    }
+    #hero h1 .dim { color: var(--fg-muted); }
+    #hero h1 .glow {
+      color: var(--accent);
+      text-shadow: 0 0 60px var(--accent-dim);
+    }
+    .hero-sub {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      color: var(--fg-dim);
+      max-width: 480px;
+      line-height: 1.5;
+      position: relative; z-index: 2;
+    }
+    .hero-form {
+      margin-top: 2.5rem;
+      display: flex;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      max-width: 460px; width: 100%;
+      position: relative; z-index: 2;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .hero-form:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 30px var(--accent-glow);
+    }
+    .hero-form input {
+      flex: 1; background: transparent; border: none;
+      padding: 1rem 1.25rem; color: var(--fg);
+      font-family: var(--font-body); font-size: 0.9rem; outline: none;
+    }
+    .hero-form input::placeholder { color: var(--fg-muted); }
+    .hero-form button {
+      background: var(--accent); color: #000;
+      border: none; border-left: 1px solid var(--border);
+      padding: 0 1.75rem;
+      font-family: var(--font-display); font-weight: 600; font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s, letter-spacing 0.3s;
+    }
+    .hero-form button:hover {
+      letter-spacing: 0.05em;
+    }
+
+    /* ═══ FEED STRIP ═══ */
+    .feed-strip {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-card);
+      padding: 0.85rem 0;
+      overflow: hidden;
+    }
+    .feed-track {
+      display: flex; gap: 3rem; white-space: nowrap;
+      animation: scroll-feed 25s linear infinite;
+    }
+    .feed-track span { color: var(--fg-muted); }
+    .feed-track .hi { color: var(--accent); }
+    @keyframes scroll-feed { to { transform: translateX(-50%); } }
+
+    /* ═══ SCORE SECTION ═══ Pinned scroll-driven counter */
+    #score-wrap { height: 300vh; position: relative; }
+    #score-section {
+      position: sticky; top: 0; height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      overflow: hidden;
+    }
+    .score-num {
+      font-family: var(--font-display);
+      font-size: clamp(8rem, 28vw, 22rem);
+      font-weight: 700;
+      line-height: 0.85;
+      letter-spacing: -0.04em;
+      color: var(--fg);
+      font-variant-numeric: tabular-nums;
+      text-shadow: 0 0 80px var(--accent-glow);
+    }
+    .score-tag {
+      font-family: var(--font-mono); font-size: 1rem;
+      color: var(--accent); margin-top: 0.5rem;
+      opacity: 0; transform: translateY(10px);
+      transition: all 0.4s var(--ease-out);
+    }
+    .score-tag.on { opacity: 1; transform: translateY(0); }
+    .bars-wrap {
+      width: 100%; max-width: 500px;
+      margin-top: 3.5rem; padding: 0 1.5rem;
+      display: flex; flex-direction: column; gap: 1.5rem;
+      opacity: 0; transform: translateY(15px);
+      transition: all 0.5s var(--ease-out) 0.15s;
+    }
+    .bars-wrap.on { opacity: 1; transform: translateY(0); }
+    .bar-label {
+      display: flex; justify-content: space-between;
+      margin-bottom: 0.4rem;
+    }
+    .bar-outer {
+      width: 100%; height: 6px;
+      background: rgba(255,255,255,0.06); border-radius: 3px;
+    }
+    .bar-inner {
+      height: 100%; width: 0%; border-radius: 3px;
+      transition: width 0.08s linear;
+    }
+    .bar-inner.build { background: var(--accent); }
+    .bar-inner.self { background: #a78bfa; }
+    .score-formula {
+      margin-top: 2.5rem; color: var(--fg-muted);
+      opacity: 0; transition: opacity 0.4s 0.3s;
+    }
+    .score-formula.on { opacity: 1; }
+    .score-legend {
+      position: absolute; bottom: 2.5rem;
+      display: flex; gap: 2rem;
+      opacity: 0; transition: opacity 0.4s 0.5s;
+    }
+    .score-legend.on { opacity: 1; }
+    .legend-item { display: flex; align-items: center; gap: 0.5rem; }
+    .legend-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+    }
+
+    /* ═══ PILLARS ═══ */
+    #pillars {
+      padding: 10rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-top: 1px solid var(--border);
+    }
+    .pillar {
+      padding: 5rem 4rem;
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative;
+      opacity: 0; transform: translateY(40px);
+      transition: all 0.7s var(--ease-out);
+    }
+    .pillar.on { opacity: 1; transform: translateY(0); }
+    .pillar:first-child {
+      border-right: 1px solid var(--border);
+    }
+    .pillar h3 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      margin-bottom: 2.5rem;
+    }
+    .pillar:first-child h3 { color: var(--accent); }
+    .pillar:last-child h3 { color: #a78bfa; }
+    .pillar ul { list-style: none; display: flex; flex-direction: column; gap: 1.25rem; }
+    .pillar li {
+      font-size: 1.15rem;
+      display: flex; align-items: center; gap: 0.75rem;
+      color: var(--fg-dim);
+      opacity: 0; transform: translateX(-15px);
+      transition: all 0.4s var(--ease-out);
+    }
+    .pillar:last-child li { transform: translateX(15px); }
+    .pillar.on li { opacity: 1; transform: translateX(0); }
+    .pillar li .arrow { color: var(--fg-muted); font-size: 0.9rem; }
+
+    /* ═══ IDEA VAULT ═══ */
+    #vault {
+      padding: 10rem 2rem;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .vault-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      animation: float 4s ease-in-out infinite alternate;
+    }
+    @keyframes float {
+      from { transform: translateY(0); }
+      to { transform: translateY(-10px); }
+    }
+    #vault h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 8vw, 6rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      margin-bottom: 4rem;
+    }
+    #vault h2 .dim { color: var(--fg-muted); }
+    .vault-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .v-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      text-align: left;
+      position: relative;
+      opacity: 0; transform: translateY(30px);
+      transition: all 0.5s var(--ease-out), border-color 0.2s, background 0.2s;
+    }
+    .v-card.on { opacity: 1; transform: translateY(0); }
+    .v-card:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-hover);
+    }
+    .v-card .tag {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .v-card .lock {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      color: var(--fg-muted); opacity: 0.4;
+    }
+    .v-card p { font-weight: 500; font-size: 1.05rem; line-height: 1.4; }
+
+    /* ═══ AI LOGGER ═══ */
+    #logger {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      padding: 10rem 4rem;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+    .logger-left h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+    .logger-left p {
+      color: var(--fg-dim); font-size: 1.15rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+      opacity: 0; transform: translateY(12px);
+      transition: all 0.4s var(--ease-out);
+    }
+    .logger-left.on p { opacity: 1; transform: translateY(0); }
+
+    .terminal {
+      background: #000;
+      border: 1px solid var(--border);
+      font-family: var(--font-mono); font-size: 0.8rem;
+      min-height: 420px;
+      display: flex; flex-direction: column;
+    }
+    .term-bar {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--fg-muted);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .term-dots { display: flex; gap: 6px; }
+    .term-dots span { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.1); }
+    .term-body {
+      padding: 1.5rem;
+      flex: 1;
+      overflow-y: auto;
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .t-row {
+      display: flex; gap: 0.75rem;
+      opacity: 0; animation: snapIn 0.15s var(--ease-out) forwards;
+    }
+    .t-pre { color: var(--accent); white-space: nowrap; }
+    .t-dim { color: var(--fg-muted); }
+    @keyframes snapIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .term-cursor-line {
+      border-top: 1px solid var(--border);
+      padding: 1rem;
+      display: flex; align-items: center; gap: 0.5rem;
+      color: var(--fg-muted);
+    }
+    .term-cursor-line span { color: var(--accent); }
+    .term-blink {
+      display: inline-block; width: 8px; height: 14px;
+      background: var(--accent); opacity: 0.7;
+      animation: cursorBlink 1s step-end infinite;
+    }
+    @keyframes cursorBlink {
+      0%,100% { opacity: 0.7; }
+      50% { opacity: 0; }
+    }
+
+    /* ═══ CTA ═══ */
+    #cta {
+      min-height: 80vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      text-align: center;
+      padding: 8rem 2rem;
+      position: relative;
+    }
+    .cta-glow {
+      position: absolute;
+      width: 50vh; height: 50vh;
+      background: radial-gradient(circle, var(--accent-glow), transparent 70%);
+      pointer-events: none;
+      animation: breathe 6s ease-in-out infinite alternate;
+    }
+    #cta h2 {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 12vw, 9rem);
+      font-weight: 700;
+      letter-spacing: -0.05em;
+      line-height: 0.85;
+      margin-bottom: 3rem;
+      position: relative; z-index: 2;
+    }
+    #cta .glow { color: var(--accent); text-shadow: 0 0 60px var(--accent-dim); }
+
+    /* ═══ FOOTER ═══ */
+    footer {
+      padding: 1.5rem 2.5rem;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      color: var(--fg-muted);
+      font-family: var(--font-mono); font-size: 0.75rem;
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-weight: 700; font-size: 1.2rem; color: var(--fg);
+    }
+
+    /* ═══ MOBILE ═══ */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-logo { font-size: 1.2rem; }
+      .btn-nav { padding: 0.5rem 1rem; font-size: 0.8rem; }
+      #hero { padding: 7rem 1.5rem 3rem; }
+      #hero h1 { font-size: clamp(3rem, 14vw, 6rem); }
+      .hero-sub { font-size: 1rem; }
+      .hero-form { flex-direction: column; }
+      .hero-form button { padding: 1rem; border-left: none; border-top: 1px solid var(--border); }
+      #pillars { grid-template-columns: 1fr; }
+      .pillar { padding: 3rem 1.5rem; }
+      .pillar:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+      #logger { grid-template-columns: 1fr; padding: 4rem 1.5rem; gap: 2rem; }
+      .terminal { min-height: 350px; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+      .score-legend { flex-direction: column; gap: 0.5rem; }
+      .bars-wrap { padding: 0 1rem; }
+      #vault { padding: 5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">KEEL</div>
+    <div class="nav-right">
+      <div class="nav-count mono"><div class="pulse-dot"></div> 238 founders waiting</div>
+      <button class="btn-nav" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Join Beta</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-glow"></div>
+    <h1>
+      <span>TRACK PROGRESS.</span>
+      <span class="glow">BUILD MOMENTUM.</span>
+      <span class="dim">EVERY DAY.</span>
+    </h1>
+    <p class="hero-sub">The OS for founders who ship. Turn your grind into measurable momentum. Stop tracking habits — start measuring what matters.</p>
+    <form class="hero-form" id="hero-form">
+      <input type="email" name="email" placeholder="your@email.com" required autocomplete="email">
+      <button type="submit">Request Access</button>
+    </form>
+  </section>
+
+  <!-- FEED -->
+  <div class="feed-strip">
+    <div class="feed-track mono">
+      <span><span class="hi">SHIP DAILY</span> · TALK TO USERS · MOVE THE NEEDLE · TRACK REALITY · FOUNDERSCORE · IDEA LOCKER · 30 SEC/DAY</span>
+      <span><span class="hi">SHIP DAILY</span> · TALK TO USERS · MOVE THE NEEDLE · TRACK REALITY · FOUNDERSCORE · IDEA LOCKER · 30 SEC/DAY</span>
+    </div>
+  </div>
+
+  <!-- SCORE SECTION -->
+  <div id="score-wrap">
+    <section id="score-section">
+      <div class="mono" style="margin-bottom:1.5rem; color:var(--fg-muted);">CALCULATING FOUNDERSCORE...</div>
+      <div class="score-num" id="score-num">0</div>
+      <div class="score-tag" id="score-tag">BUILDING 🔨</div>
+      <div class="bars-wrap" id="bars-wrap">
+        <div>
+          <div class="bar-label mono"><span>BUILD</span><span id="build-val">0%</span></div>
+          <div class="bar-outer"><div class="bar-inner build" id="build-bar"></div></div>
+        </div>
+        <div>
+          <div class="bar-label mono"><span>SELF</span><span id="self-val">0%</span></div>
+          <div class="bar-outer"><div class="bar-inner self" id="self-bar"></div></div>
+        </div>
+      </div>
+      <div class="score-formula mono" id="score-formula">FounderScore = (Build × 0.6) + (Self × 0.4)</div>
+      <div class="score-legend mono" id="score-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div> SHIPPING 85+</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--fg)"></div> BUILDING 70+</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--fg-muted)"></div> STRUGGLING 30+</div>
+      </div>
+    </section>
+  </div>
+
+  <!-- PILLARS -->
+  <section id="pillars">
+    <div class="pillar" data-reveal>
+      <h3>⚡ Build</h3>
+      <ul>
+        <li><span class="arrow">→</span> Tasks shipped</li>
+        <li><span class="arrow">→</span> Talked to customer</li>
+        <li><span class="arrow">→</span> Moved the needle</li>
+        <li><span class="arrow">→</span> Revenue logged</li>
+      </ul>
+    </div>
+    <div class="pillar" data-reveal>
+      <h3>🌊 Self</h3>
+      <ul>
+        <li><span class="arrow">→</span> Sleep & Recovery</li>
+        <li><span class="arrow">→</span> Energy levels</li>
+        <li><span class="arrow">→</span> Mood & Clarity</li>
+        <li><span class="arrow">→</span> Budget & Exercise</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- IDEA VAULT -->
+  <section id="vault">
+    <div class="vault-icon">🔒</div>
+    <h2>YOUR IDEAS NEVER<br><span class="dim">LEAVE YOUR DEVICE.</span></h2>
+    <div class="vault-grid" id="vault-grid">
+      <div class="v-card"><div class="lock">🔒</div><div class="tag">[PRODUCT]</div><p>Voice logging idea with Whisper v3 locally</p></div>
+      <div class="v-card"><div class="lock">🔒</div><div class="tag">[GROWTH]</div><p>IIT/NIT WhatsApp founders group seeding</p></div>
+      <div class="v-card"><div class="lock">🔒</div><div class="tag">[MARKETING]</div><p>Weekly public leaderboard for shippable.com</p></div>
+      <div class="v-card"><div class="lock">🔒</div><div class="tag">[PRODUCT]</div><p>₹99/month recurring after manual trial</p></div>
+    </div>
+  </section>
+
+  <!-- AI LOGGER -->
+  <section id="logger">
+    <div class="logger-left" data-reveal>
+      <h2>LOG IN SECONDS.<br>SEE IN REAL-TIME.</h2>
+      <p>AI extracts your metrics from natural speech.</p>
+      <p>Clarity on what moved the needle.</p>
+      <p>Zero friction tracking.</p>
+    </div>
+    <div class="terminal">
+      <div class="term-bar">
+        <div class="term-dots"><span></span><span></span><span></span></div>
+        <span>keel/ai v2.0</span>
+      </div>
+      <div class="term-body" id="term-body"></div>
+      <div class="term-cursor-line">
+        <span>›</span>
+        <div class="term-blink"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta">
+    <div class="cta-glow"></div>
+    <h2>MOMENTUM<br>STARTS <span class="glow">TODAY.</span></h2>
+    <form class="hero-form" id="cta-form" style="max-width:460px;">
+      <input type="email" name="email" placeholder="your@email.com" required autocomplete="email">
+      <button type="submit">Lock In</button>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">KEEL</div>
+    <div>BUILT BY A REAL FOUNDER · PRIVATE BETA · 2026</div>
+  </footer>
+
+  <script type="module">
+    /* ═══ FIREBASE ═══ */
+    const firebaseConfig = {
+      apiKey: "YOUR_FIREBASE_WEB_API_KEY",
+      authDomain: "YOUR_PROJECT.firebaseapp.com",
+      projectId: "YOUR_PROJECT",
+      appId: "YOUR_FIREBASE_WEB_APP_ID"
+    };
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    /* ═══ FORM HANDLING ═══ */
+    async function handleForm(e) {
+      e.preventDefault();
+      const form = e.target;
+      const btn = form.querySelector('button');
+      const input = form.querySelector('input[name="email"]');
+      const email = input.value;
+      if (!email) return;
+      const origText = btn.innerText;
+      btn.innerText = "WAIT..."; btn.disabled = true;
+      try {
+        await setDoc(doc(db, "waitlist", email), { email, timestamp: serverTimestamp(), source: 'website_v3' });
+        btn.style.background = "#a78bfa"; btn.style.color = "#000";
+        btn.innerText = "✓ SECURED"; input.value = "";
+        setTimeout(() => { btn.style.background = ""; btn.style.color = ""; btn.innerText = origText; btn.disabled = false; }, 3500);
+        return;
+      } catch (err) { console.error(err); btn.innerText = "RETRY"; }
+      finally { setTimeout(() => { btn.innerText = origText; btn.disabled = false; }, 4000); }
+    }
+    document.getElementById('hero-form').addEventListener('submit', handleForm);
+    document.getElementById('cta-form').addEventListener('submit', handleForm);
+
+    /* ═══ SCROLL SCORE ═══ */
+    const scoreWrap = document.getElementById('score-wrap');
+    const scoreNum = document.getElementById('score-num');
+    const scoreTag = document.getElementById('score-tag');
+    const barsWrap = document.getElementById('bars-wrap');
+    const buildBar = document.getElementById('build-bar');
+    const buildVal = document.getElementById('build-val');
+    const selfBar = document.getElementById('self-bar');
+    const selfVal = document.getElementById('self-val');
+    const scoreFormula = document.getElementById('score-formula');
+    const scoreLegend = document.getElementById('score-legend');
+
+    window.addEventListener('scroll', () => {
+      const rect = scoreWrap.getBoundingClientRect();
+      const pct = Math.min(Math.max(-rect.top / (rect.height - window.innerHeight), 0), 1);
+      scoreNum.innerText = Math.floor(pct * 73);
+      if (pct > 0.1) scoreTag.classList.add('on'); else scoreTag.classList.remove('on');
+      if (pct > 0.3) {
+        barsWrap.classList.add('on');
+        const bp = Math.min((pct - 0.3) / 0.4, 1);
+        buildBar.style.width = (bp * 68) + '%'; buildVal.innerText = Math.floor(bp * 68) + '%';
+        selfBar.style.width = (bp * 81) + '%'; selfVal.innerText = Math.floor(bp * 81) + '%';
+      } else { barsWrap.classList.remove('on'); }
+      if (pct > 0.7) scoreFormula.classList.add('on'); else scoreFormula.classList.remove('on');
+      if (pct > 0.9) scoreLegend.classList.add('on'); else scoreLegend.classList.remove('on');
+    });
+
+    /* ═══ REVEAL OBSERVER ═══ */
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('on');
+          // Stagger children reveals
+          const items = e.target.querySelectorAll('li, p[data-delay]');
+          items.forEach((item, i) => setTimeout(() => { item.style.transitionDelay = i * 80 + 'ms'; }, 0));
+          // Vault cards
+          if (e.target.id === 'vault-grid') {
+            e.target.querySelectorAll('.v-card').forEach((c, i) => setTimeout(() => c.classList.add('on'), i * 120));
+          }
+          if (e.target.id === 'logger') startTerminal();
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('[data-reveal], .pillar, #vault-grid, #logger').forEach(el => obs.observe(el));
+
+    /* ═══ TERMINAL SIMULATOR ═══ */
+    let termStarted = false;
+    function startTerminal() {
+      if (termStarted) return; termStarted = true;
+      const body = document.getElementById('term-body');
+      const seq = [
+        { pre: 'KEEL', txt: 'Hey founder 👋 Tell me about your day...', delay: 0 },
+        { pre: 'YOU', txt: 'Shipped 2 features, talked to 3 users, slept 7hrs, spent ₹200...', delay: 1200, dim: false },
+        { pre: 'SYS', txt: 'Extracting metrics...', delay: 2200, dim: true },
+        { pre: 'BUILD', txt: '+2 features shipped, +3 users contacted', delay: 3000 },
+        { pre: 'SELF', txt: 'Sleep: 7h ✓  Budget: ₹200 logged', delay: 3400 },
+        { pre: 'SCORE', txt: 'FounderScore: 72. Talking to users is your highest leverage.', delay: 4200 },
+      ];
+      seq.forEach(s => {
+        setTimeout(() => {
+          const row = document.createElement('div');
+          row.className = 't-row' + (s.dim ? ' t-dim' : '');
+          row.innerHTML = `<span class="t-pre">${s.pre}›</span><span>${s.txt}</span>`;
+          body.appendChild(row);
+          body.scrollTop = body.scrollHeight;
+        }, s.delay);
+      });
+    }
+
+
+
+    /* ═══ HERO LOAD ANIMATION ═══ */
+    document.addEventListener('DOMContentLoaded', () => {
+      const spans = document.querySelectorAll('#hero h1 span');
+      spans.forEach((s, i) => {
+        s.style.opacity = '0'; s.style.transform = 'translateY(30px)';
+        s.style.transition = `all 0.6s var(--ease-out) ${200 + i * 150}ms`;
+        setTimeout(() => { s.style.opacity = '1'; s.style.transform = 'translateY(0)'; }, 50);
+      });
+    });
+  </script>
+</body>
+</html>

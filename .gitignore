@@ -43,3 +43,20 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Local configuration, dependencies, databases, and signing material
+node_modules/
+.vercel/
+.env
+.env.*
+!.env.example
+*.db
+*.db-*
+*.jks
+*.keystore
+*.p12
+**/google-services.json
+**/GoogleService-Info.plist
+firebase.json
+build_log.txt
+.vscode/

@@ -1,6 +1,6 @@
 {
-    "name": "Keel",
-    "short_name": "Keel",
+    "name": "life_score",
+    "short_name": "life_score",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
